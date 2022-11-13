@@ -13,21 +13,17 @@ public class Server {
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             try (Socket clienSocket = serverSocket.accept();
-
                  PrintWriter out = new PrintWriter(clienSocket.getOutputStream(), true);
                  BufferedReader in = new BufferedReader(new InputStreamReader(clienSocket.getInputStream()))) {
                 while (true) {
-
                     System.out.println("New connected accepted");
                     final String name = in.readLine();
+
+                    out.println(String.format("Hi %s, your is %d", name, clienSocket.getPort()));
                     if (name.equals("end"))
                         break;
-                    System.out.println("������" + name);
-                    out.println(String.format("Hi %s, your is %d", name, clienSocket.getPort()));
-                    clienSocket.setSoTimeout(10000);
                 }
             }
-
         }
     }
 }

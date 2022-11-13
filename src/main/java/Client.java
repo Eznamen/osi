@@ -10,16 +10,19 @@ public class Client {
 
         InetAddress addr = InetAddress.getByName(host);
         Socket clientSocket = new Socket(addr, Server.port);
+
         try {
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             System.out.println("New connected accepted");
-            for (int i = 0; i < 2; i++) {
-                out.println("howdy" + i);
+
+                out.println("dude");
                 String name = in.readLine();
                 System.out.println(name);
-            }
+
             out.println("end");
+            out.flush();
+            clientSocket.setSoTimeout(3000);
 
         } finally {
             System.out.println("close");
